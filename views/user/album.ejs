@@ -1,0 +1,102 @@
+<%- include('navbar.ejs') %>
+<style>
+    .album-page h2 {
+  text-align: center;
+}
+
+.album-info {
+  text-align: center;
+  color: gray;
+}
+
+.album-main-image img {
+  width: 100%;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.album-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+}
+
+.album-grid img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.share-buttons {
+  text-align: center;
+  margin: 30px 0;
+}
+
+.share-btn {
+  padding: 10px 20px;
+  margin: 10px;
+  display: inline-block;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.whatsapp { background: #25D366; }
+.instagram { background: #E1306C; }
+
+</style>
+
+<%- include('navbar.ejs') %>
+
+<section class="album-page">
+  <div class="container">
+
+    <h2>Rohit & Pooja Wedding</h2>
+    <p class="album-info">📍 Pune | 📅 12 Dec 2025</p>
+
+    <!-- Large Image (DYNAMIC from Portfolio click) -->
+<%
+  var displayImage = mainImage 
+    ? mainImage 
+    : "https://elementscelebrate.com/wp-content/uploads/2022/07/Background-img-2000x1333.jpg";
+%>
+
+<div class="album-main-image">
+  <a href="<%= displayImage %>" target="_blank">
+    <img src="<%= displayImage %>" alt="Main Wedding Image">
+  </a>
+</div>
+
+    <!-- Small Images Grid (ALL CLICKABLE) -->
+    <div class="album-grid">
+
+      <a href="https://lh7-rt.googleusercontent.com/docsz/AD_4nXeUusIHs-MEmXgkWKxxRLsp8yyEDuX4VaAKuujCbp9HhqOZuOd5lZ4-zqmuw_YKutICKoWd6lgGt53FDm1pK9Tkz8y1OAVbcjFbQfbSu33na8PHcTjEQGqhH7Uz4VmpwilgI7bON-rJVrf1VUxmAT5ywyg" target="_blank">
+        <img src="https://lh7-rt.googleusercontent.com/docsz/AD_4nXeUusIHs-MEmXgkWKxxRLsp8yyEDuX4VaAKuujCbp9HhqOZuOd5lZ4-zqmuw_YKutICKoWd6lgGt53FDm1pK9Tkz8y1OAVbcjFbQfbSu33na8PHcTjEQGqhH7Uz4VmpwilgI7bON-rJVrf1VUxmAT5ywyg" />
+      </a>
+
+      <a href="https://elementscelebrate.com/wp-content/uploads/2022/07/blr5-2000x1333.jpg" target="_blank">
+        <img src="https://elementscelebrate.com/wp-content/uploads/2022/07/blr5-2000x1333.jpg" />
+      </a>
+
+      <a href="https://elementscelebrate.com/wp-content/uploads/2024/11/DSC01255-2000x1333.jpg" target="_blank">
+        <img src="https://elementscelebrate.com/wp-content/uploads/2024/11/DSC01255-2000x1333.jpg" />
+      </a>
+
+      <a href="https://images.unsplash.com/photo-1540575467063-178a50c2df87" target="_blank">
+        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87" />
+      </a>
+
+    </div>
+
+    <!-- Share Buttons -->
+    <div class="share-buttons">
+      <a href="#" class="share-btn whatsapp">Share on WhatsApp</a>
+      <a href="#" class="share-btn instagram">Share on Instagram</a>
+    </div>
+
+  </div>
+</section>
+
+
+
+
+<%- include('footer.ejs') %>

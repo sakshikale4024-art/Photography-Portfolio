@@ -1,0 +1,90 @@
+<%- include('navbar.ejs') %>
+<style>
+    .portfolio-item a {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+</style>
+
+<section id="portfolio">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Portfolio Gallery</h2>
+    </div>
+
+    <!-- Categories -->
+    <div class="categories">
+      <button class="category-btn active" data-filter="all">All</button>
+      <button class="category-btn" data-filter="wedding">Wedding</button>
+      <button class="category-btn" data-filter="pre-wedding">Pre-wedding</button>
+      <button class="category-btn" data-filter="portrait">Portrait</button>
+      <button class="category-btn" data-filter="events">Events</button>
+      <button class="category-btn" data-filter="nature">Nature</button>
+    </div>
+
+    <!-- Portfolio Grid -->
+    <div class="portfolio-grid">
+
+      <!-- Wedding -->
+      <div class="portfolio-item" data-category="wedding">
+  <a href="/album/rohit-pooja?img=https://elementscelebrate.com/wp-content/uploads/2022/07/Background-img-2000x1333.jpg">
+    <img src="https://elementscelebrate.com/wp-content/uploads/2022/07/Background-img-2000x1333.jpg">
+    <div class="portfolio-category">Wedding</div>
+    <p class="album-title">Rohit & Pooja Wedding</p>
+  </a>
+</div>
+
+      <!-- Pre-wedding -->
+      <div class="portfolio-item" data-category="pre-wedding">
+        
+          <img src="https://elementscelebrate.com/wp-content/uploads/2024/11/DSC01255-2000x1333.jpg">
+          <div class="portfolio-category">Pre-wedding</div>
+        </a>
+      </div>
+
+      <!-- Portrait -->
+      <div class="portfolio-item" data-category="portrait">
+        <a href="/album/rohit-pooja">
+          <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2">
+          <div class="portfolio-category">Portrait</div>
+        </a>
+      </div>
+
+      <div class="portfolio-item" data-category="portrait">
+        <a href="/album/rohit-pooja">
+          <img src="https://png.pngtree.com/thumb_back/fw800/background/20251231/pngtree-a-young-woman-smiling-warmly-in-natural-setting-image_20896459.webp">
+          <div class="portfolio-category">Portrait</div>
+        </a>
+      </div>
+
+      <!-- Events -->
+      <div class="portfolio-item" data-category="events">
+        <a href="/album/rohit-pooja">
+          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87">
+          <div class="portfolio-category">Events</div>
+        </a>
+      </div>
+
+      <div class="portfolio-item" data-category="events">
+        <a href="/album/rohit-pooja">
+          <img src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3">
+          <div class="portfolio-category">Events</div>
+        </a>
+      </div>
+
+      <!-- Nature -->
+      <div class="portfolio-item" data-category="nature">
+        <a href="/album/rohit-pooja">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOFuERGDCbwy4A7Zo3DsP4nvF-V29sbsPukEY56cLA4gYEkiDlV_bLMLs&s">
+          <div class="portfolio-category">Nature</div>
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<%- include('footer.ejs') %>

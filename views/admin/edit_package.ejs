@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Package</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f7fa;
+        }
+        .container {
+            max-width: 700px;
+            margin: 40px auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 6px;
+        }
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        .btn {
+            background: #2ecc71;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-weight: 600;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn-back {
+            background: #3498db;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2><i class="fas fa-edit"></i> Edit Package</h2>
+
+    <form method="POST" action="/admin/update_package/<%= package.id %>">
+
+        <div class="form-group">
+            <label>Package Name</label>
+            <input type="text" name="package_name" value="<%= package.package_name %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Service Category</label>
+            <select name="service_category" required>
+                <option value="Wedding" <%= package.service_category==='Wedding'?'selected':'' %>>Wedding</option>
+                <option value="pre-wedding" <%= package.service_category==='pre-wedding'?'selected':'' %>>Pre-Wedding</option>
+                <option value="Event" <%= package.service_category==='Event'?'selected':'' %>>Event</option>
+                <option value="Corporate" <%= package.service_category==='Corporate'?'selected':'' %>>Corporate</option>
+                <option value="Portrait" <%= package.service_category==='Portrait'?'selected':'' %>>Portrait</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label>Price</label>
+            <input type="number" name="price" value="<%= package.price %>" required>
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="short_description"><%= package.short_description %></textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Status</label>
+            <select name="status">
+                <option value="Active" <%= package.status==='Active'?'selected':'' %>>Active</option>
+                <option value="Inactive" <%= package.status==='Inactive'?'selected':'' %>>Inactive</option>
+            </select>
+        </div>
+
+        <button class="btn">
+            <i class="fas fa-save"></i> Update Package
+        </button>
+
+        <a href="/admin/packages" class="btn btn-back">
+            Back
+        </a>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,25 @@
+<form method="POST" action="/admin/update_service/<%= service.id %>">
+    <input type="text" name="service_name" value="<%= service.service_name %>" required>
+    
+    <select name="category" required>
+        <option value="Wedding" <%= service.category==='Wedding'?'selected':'' %>>Wedding</option>
+        <option value="Event" <%= service.category==='Event'?'selected':'' %>>Event</option>
+    </select>
+
+    <input type="number" name="base_price" value="<%= service.base_price %>" required>
+
+    <select name="price_type" required>
+        <option value="Per Day" <%= service.price_type==='Per Day'?'selected':'' %>>Per Day</option>
+        <option value="Per Hour" <%= service.price_type==='Per Hour'?'selected':'' %>>Per Hour</option>
+        <option value="Fixed" <%= service.price_type==='Fixed'?'selected':'' %>>Fixed</option>
+    </select>
+
+    <select name="status" required>
+        <option value="Active" <%= service.status==='Active'?'selected':'' %>>Active</option>
+        <option value="Inactive" <%= service.status==='Inactive'?'selected':'' %>>Inactive</option>
+    </select>
+
+    <button type="submit" class="btn">
+        <i class="fas fa-save"></i> Update Service
+    </button>
+</form>

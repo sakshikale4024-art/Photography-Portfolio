@@ -1,0 +1,1251 @@
+<%- include('navbar.ejs') %>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Packages | Photography Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #e74c3c;
+            --accent: #3498db;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #2ecc71;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+
+        /* Hero Section */
+        .packages-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1554048612-b6a482bc67e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .packages-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .packages-hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .packages-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        /* Packages Section */
+        .packages-section {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--primary);
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: var(--secondary);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Packages Comparison Table */
+        .comparison-table {
+            max-width: 1000px;
+            margin: 60px auto;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .table-header {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+        }
+        
+        .table-header div {
+            padding: 25px 15px;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            border-bottom: 1px solid #eee;
+            transition: background-color 0.3s;
+        }
+        
+        .table-row:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .table-row div {
+            padding: 20px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+        
+        .feature-name {
+            justify-content: flex-start !important;
+            font-weight: 500;
+            color: var(--primary);
+        }
+        
+        .check-icon {
+            color: var(--success);
+            font-size: 20px;
+        }
+        
+        .cross-icon {
+            color: #e74c3c;
+            font-size: 18px;
+        }
+        
+        /* Packages Cards */
+        .packages-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 80px;
+        }
+        
+        .package-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            width: 350px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .package-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+        }
+        
+        .package-card.popular {
+            transform: scale(1.05);
+            border: 3px solid var(--secondary);
+        }
+        
+        .package-card.popular:hover {
+            transform: scale(1.05) translateY(-10px);
+        }
+        
+        .popular-badge {
+            position: absolute;
+            top: 20px;
+            right: -40px;
+            background-color: var(--secondary);
+            color: white;
+            padding: 8px 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transform: rotate(45deg);
+            box-shadow: 0 5px 15px rgba(231, 76, 60, 0.3);
+        }
+        
+        .package-header {
+            padding: 40px 30px 30px;
+            text-align: center;
+            background: linear-gradient(135deg, var(--primary), #34495e);
+            color: white;
+        }
+        
+        .package-header.basic {
+            background: linear-gradient(135deg, #7f8c8d, #95a5a6);
+        }
+        
+        .package-header.standard {
+            background: linear-gradient(135deg, var(--primary), #34495e);
+        }
+        
+        .package-header.premium {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .package-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .package-price {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .package-duration {
+            font-size: 1rem;
+            opacity: 0.9;
+        }
+        
+        .package-features {
+            padding: 30px;
+        }
+        
+        .feature-item {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .feature-icon {
+            width: 24px;
+            height: 24px;
+            background-color: var(--accent);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 12px;
+            margin-right: 15px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        
+        .feature-text {
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .package-actions {
+            padding: 0 30px 30px;
+            text-align: center;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            letter-spacing: 0.5px;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid var(--secondary);
+            color: var(--secondary);
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--secondary);
+            color: white;
+        }
+        
+        /* Custom Package Section */
+        .custom-package-section {
+            padding: 100px 0;
+            background-color: white;
+        }
+        
+        .custom-package-content {
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+        
+        .custom-image {
+            flex: 1;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .custom-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        
+        .custom-info {
+            flex: 1;
+        }
+        
+        .custom-info h2 {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+        
+        .custom-info p {
+            color: #666;
+            margin-bottom: 30px;
+            line-height: 1.7;
+        }
+        
+        .custom-features {
+            margin-bottom: 30px;
+        }
+        
+        .custom-feature {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .custom-feature i {
+            color: var(--success);
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 0;
+            background-color: #f8f9fa;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-question.active {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-icon {
+            color: var(--secondary);
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .faq-answer.show {
+            padding: 0 30px 30px;
+            max-height: 500px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary), #1a252f);
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background-color: var(--secondary);
+            color: white;
+            padding: 18px 45px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-5px);
+            box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .cta-btn-secondary:hover {
+            background-color: white;
+            color: var(--primary);
+        }
+        
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: #ecf0f1;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-logo h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo span {
+            color: var(--secondary);
+        }
+        
+        .footer-contact {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-contact h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            background-color: var(--secondary);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #34495e;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: var(--secondary);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .packages-container {
+                gap: 20px;
+            }
+            
+            .package-card {
+                width: 320px;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .packages-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .packages-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .package-card {
+                width: 100%;
+                max-width: 450px;
+            }
+            
+            .package-card.popular {
+                transform: scale(1);
+            }
+            
+            .package-card.popular:hover {
+                transform: translateY(-15px);
+            }
+            
+            .custom-package-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .table-header, .table-row {
+                grid-template-columns: 1.5fr repeat(3, 1fr);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+            }
+            
+            nav ul.show {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            .packages-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .packages-hero {
+                height: 40vh;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .table-header, .table-row {
+                font-size: 0.9rem;
+            }
+            
+            .table-header div, .table-row div {
+                padding: 15px 10px;
+            }
+            
+            .package-price {
+                font-size: 2.5rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .packages-hero {
+                height: 35vh;
+            }
+            
+            .packages-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 14px 30px;
+                font-size: 16px;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .packages-section, .custom-package-section, .faq-section, .cta-section {
+                padding: 70px 0;
+            }
+            
+            .table-header, .table-row {
+                grid-template-columns: 1fr repeat(3, 0.8fr);
+            }
+            
+            .feature-name {
+                font-size: 0.85rem;
+            }
+            
+            .package-header {
+                padding: 30px 20px 20px;
+            }
+            
+            .package-features, .package-actions {
+                padding: 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .table-header, .table-row {
+                grid-template-columns: 1.5fr repeat(3, 0.7fr);
+            }
+            
+            .table-header div, .table-row div {
+                padding: 12px 5px;
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    
+
+    <!-- Hero Section -->
+    <section class="packages-hero">
+        <div class="packages-hero-content">
+            <h1>Photography Packages</h1>
+            <p>Choose the perfect package that fits your needs and budget. Professional photography services at competitive prices.</p>
+        </div>
+    </section>
+
+    <!-- Packages Section -->
+    <section class="packages-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Packages</h2>
+                <p>Select from our curated photography packages designed for different needs and occasions. All packages include high-quality editing and digital delivery.</p>
+            </div>
+            
+            <!-- Packages Comparison Table -->
+            <div class="comparison-table">
+                <div class="table-header">
+                    <div>Features</div>
+                    <div>Basic</div>
+                    <div>Standard</div>
+                    <div>Premium</div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Duration</div>
+                    <div>4 Hours</div>
+                    <div>8 Hours</div>
+                    <div>Full Day</div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Number of Photos</div>
+                    <div>200+ Photos</div>
+                    <div>400+ Photos</div>
+                    <div>Unlimited Photos</div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Photo Album</div>
+                    <div><i class="fas fa-times cross-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Cinematic Video</div>
+                    <div><i class="fas fa-times cross-icon"></i></div>
+                    <div><i class="fas fa-times cross-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Online Gallery</div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">High-Resolution Images</div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Print Rights</div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                    <div><i class="fas fa-check check-icon"></i></div>
+                </div>
+                
+                <div class="table-row">
+                    <div class="feature-name">Turnaround Time</div>
+                    <div>10-14 Days</div>
+                    <div>14-21 Days</div>
+                    <div>21-30 Days</div>
+                </div>
+            </div>
+            
+            <!-- Packages Cards -->
+            <div class="packages-container">
+                <!-- Basic Package -->
+                <div class="package-card">
+                    <div class="package-header basic">
+                        <div class="package-name">Basic Package</div>
+                        <div class="package-price">₹15,000</div>
+                        <div class="package-duration">4 Hours Coverage</div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">4h</div>
+                            <div class="feature-text"><strong>4 Hours</strong> of photography coverage</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">200+</div>
+                            <div class="feature-text"><strong>200+ High-Resolution</strong> edited photos</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                            <div class="feature-text">Online gallery for viewing & downloading</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-edit"></i></div>
+                            <div class="feature-text">Professional editing & color correction</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-download"></i></div>
+                            <div class="feature-text">Digital delivery with print rights</div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-actions">
+                        <a href="/contact" class="btn">Book Basic Package</a>
+                    </div>
+                </div>
+                
+                <!-- Standard Package (Popular) -->
+                <div class="package-card popular">
+                    <div class="popular-badge">MOST POPULAR</div>
+                    <div class="package-header standard">
+                        <div class="package-name">Standard Package</div>
+                        <div class="package-price">₹30,000</div>
+                        <div class="package-duration">8 Hours Coverage</div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <div class="feature-icon">8h</div>
+                            <div class="feature-text"><strong>8 Hours</strong> of photography coverage</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">400+</div>
+                            <div class="feature-text"><strong>400+ High-Resolution</strong> edited photos</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-book"></i></div>
+                            <div class="feature-text"><strong>Professional Photo Album</strong> included</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                            <div class="feature-text">Online gallery for viewing & downloading</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-edit"></i></div>
+                            <div class="feature-text">Advanced editing & retouching</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-print"></i></div>
+                            <div class="feature-text">10 complimentary 8x10 prints</div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-actions">
+                        <a href="/contact" class="btn">Book Standard Package</a>
+                    </div>
+                </div>
+                
+                <!-- Premium Package -->
+                <div class="package-card">
+                    <div class="package-header premium">
+                        <div class="package-name">Premium Package</div>
+                        <div class="package-price">₹50,000</div>
+                        <div class="package-duration">Full Day Coverage</div>
+                    </div>
+                    
+                    <div class="package-features">
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-sun"></i></div>
+                            <div class="feature-text"><strong>Full Day</strong> photography coverage</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon">∞</div>
+                            <div class="feature-text"><strong>Unlimited</strong> high-resolution photos</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-video"></i></div>
+                            <div class="feature-text"><strong>Cinematic Highlight Video</strong> (3-5 minutes)</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-book"></i></div>
+                            <div class="feature-text"><strong>Premium Photo Album</strong> with leather cover</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-cloud"></i></div>
+                            <div class="feature-text">Online gallery with password protection</div>
+                        </div>
+                        
+                        <div class="feature-item">
+                            <div class="feature-icon"><i class="fas fa-magic"></i></div>
+                            <div class="feature-text">Premium retouching & artistic edits</div>
+                        </div>
+                    </div>
+                    
+                    <div class="package-actions">
+                        <a href="/contact" class="btn">Book Premium Package</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Custom Package Section -->
+    <section class="custom-package-section">
+        <div class="container">
+            <div class="custom-package-content">
+                <div class="custom-image">
+                    <img src="https://m.media-amazon.com/images/I/71XBGP7nuiL._AC_UF894,1000_QL80_.jpg" alt="Custom Photography Package">
+                </div>
+                
+                <div class="custom-info">
+                    <h2>Custom Package</h2>
+                    <p>Need something tailored to your specific requirements? We offer custom photography packages that can be designed exactly according to your needs and budget.</p>
+                    
+                    <div class="custom-features">
+                        <div class="custom-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Mix and match services from different packages</span>
+                        </div>
+                        
+                        <div class="custom-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Add extra hours, locations, or photographers</span>
+                        </div>
+                        
+                        <div class="custom-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Special rates for destination photography</span>
+                        </div>
+                        
+                        <div class="custom-feature">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Corporate and commercial photography options</span>
+                        </div>
+                    </div>
+                    
+                    <a href="/contact" class="btn btn-outline">Request Custom Quote</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <!-- <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Package FAQs</h2>
+                <p>Common questions about our photography packages and services</p>
+            </div>
+            
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What's included in the "Full Day" coverage of the Premium package?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Full Day coverage typically includes 10-12 hours of photography, starting from preparation shots in the morning until the end of the main events in the evening. This ensures we capture every important moment of your special day.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Can I upgrade my package after booking?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, you can upgrade your package up to 14 days before your event. The price difference will be calculated, and any additional services will be added to your package. Contact us to discuss upgrade options.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How many photographers will be present at my event?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>The Basic package includes one photographer. The Standard and Premium packages include a primary photographer and an assistant/second photographer to ensure comprehensive coverage from multiple angles.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is the turnaround time for receiving my photos?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Basic package: 10-14 days, Standard package: 14-21 days, Premium package: 21-30 days. We provide a few preview images within 48 hours. The cinematic video in the Premium package is delivered within 45 days.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer payment plans?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer flexible payment plans. Typically, we require a 30% deposit to secure your date, with the remaining balance due 14 days before your event. We can discuss customized payment schedules if needed.</p>
+                    </div>
+                </div>
+                 -->
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Are travel expenses included in the package prices?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Local travel within the city is included. For events outside our service area, a reasonable travel fee may apply to cover transportation and accommodation if needed. We'll provide a transparent quote including any travel expenses.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Book Your Package?</h2>
+                <p>Contact us today to discuss your photography needs, check availability, and secure your date. Limited slots available!</p>
+                
+                <div class="cta-buttons">
+                    <a href="/contact" class="cta-btn">Book Now</a>
+                    <!-- <a href="contact.html" class="cta-btn cta-btn-secondary">Get a Free Consultation</a> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Photo<span>Graphy</span></h3>
+                    <p>Capturing life's precious moments with creativity and passion. Let's create beautiful memories together.</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Information</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <p>+91 98765 43210</p>
+                                <small>Phone / WhatsApp</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p>info@indianphotography.com</p>
+                                <small>Email</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <p>123 Studio Street, Mumbai</p>
+                                <small>Maharashtra, India 400001</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Indian Photography Portfolio. All rights reserved. | Prices in Indian Rupees (₹)</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('show');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('.faq-icon');
+                
+                // Toggle active class on question
+                question.classList.toggle('active');
+                
+                // Toggle answer visibility
+                if (answer.classList.contains('show')) {
+                    answer.classList.remove('show');
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                } else {
+                    // Close other open answers
+                    document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                        otherAnswer.classList.remove('show');
+                    });
+                    document.querySelectorAll('.faq-question').forEach(otherQuestion => {
+                        otherQuestion.classList.remove('active');
+                        const otherIcon = otherQuestion.querySelector('.faq-icon');
+                        otherIcon.classList.remove('fa-minus');
+                        otherIcon.classList.add('fa-plus');
+                    });
+                    
+                    // Open this answer
+                    answer.classList.add('show');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.08)';
+            }
+        });
+        
+        // Add currency formatting
+        document.addEventListener('DOMContentLoaded', function() {
+            // Format Indian Rupees with comma separators
+            const priceElements = document.querySelectorAll('.package-price');
+            priceElements.forEach(element => {
+                const priceText = element.textContent;
+                if (priceText.includes('₹')) {
+                    const priceNumber = priceText.replace('₹', '').replace(',', '');
+                    const formattedPrice = '₹' + parseInt(priceNumber).toLocaleString('en-IN');
+                    element.textContent = formattedPrice;
+                }
+            });
+        });
+    </script>
+</body>
+</html>

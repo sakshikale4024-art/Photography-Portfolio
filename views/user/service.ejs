@@ -1,0 +1,1047 @@
+<%- include('navbar.ejs') %>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services | Photography Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Header & Navigation */
+       
+        
+        /* Hero Section for Services */
+        .services-hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                        url('https://images.unsplash.com/photo-1554048612-b6a482bc67e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+            margin-top: 80px;
+        }
+        
+        .services-hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .services-hero h1 {
+            font-size: 3.2rem;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+        }
+        
+        .services-hero p {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        /* Services Section */
+        .services-section {
+            padding: 100px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background-color: #e74c3c;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        
+        .section-title p {
+            max-width: 700px;
+            margin: 20px auto 0;
+            color: #666;
+            font-size: 1.1rem;
+        }
+        
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
+        }
+        
+        .service-card {
+            background-color: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s ease;
+            position: relative;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-image {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .service-card:hover .service-image img {
+            transform: scale(1.05);
+        }
+        
+        .service-content {
+            padding: 30px;
+        }
+        
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            color: white;
+            font-size: 28px;
+        }
+        
+        .service-content h3 {
+            font-size: 1.8rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .service-content p {
+            color: #666;
+            margin-bottom: 25px;
+            line-height: 1.7;
+        }
+        
+        .service-features {
+            margin-bottom: 25px;
+        }
+        
+        .service-features li {
+            margin-bottom: 10px;
+            color: #555;
+            display: flex;
+            align-items: flex-start;
+        }
+        
+        .service-features li i {
+            color: #e74c3c;
+            margin-right: 10px;
+            margin-top: 5px;
+            font-size: 14px;
+        }
+        
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #e74c3c;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .price-note {
+            font-size: 0.9rem;
+            color: #888;
+            font-style: italic;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.3);
+        }
+        
+        .btn-outline {
+            background-color: transparent;
+            border: 2px solid #e74c3c;
+            color: #e74c3c;
+        }
+        
+        .btn-outline:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+        
+        /* Process Section */
+        .process-section {
+            background-color: #f5f5f5;
+            padding: 100px 0;
+        }
+        
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            margin-top: 60px;
+            position: relative;
+        }
+        
+        .process-step {
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .process-step:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            top: 40px;
+            right: -20px;
+            width: 100%;
+            height: 2px;
+            background-color: #ddd;
+            z-index: -1;
+        }
+        
+        @media (max-width: 992px) {
+            .process-step:not(:last-child)::after {
+                display: none;
+            }
+        }
+        
+        .step-number {
+            width: 80px;
+            height: 80px;
+            background-color: #e74c3c;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 32px;
+            font-weight: 700;
+            margin: 0 auto 25px;
+            box-shadow: 0 10px 20px rgba(231, 76, 60, 0.2);
+        }
+        
+        .process-step h3 {
+            font-size: 1.5rem;
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .process-step p {
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        /* FAQ Section */
+        .faq-section {
+            padding: 100px 0;
+        }
+        
+        .faq-container {
+            max-width: 800px;
+            margin: 60px auto 0;
+        }
+        
+        .faq-item {
+            background-color: white;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+        }
+        
+        .faq-question {
+            padding: 20px 30px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+        
+        .faq-question:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-question.active {
+            background-color: #f9f9f9;
+        }
+        
+        .faq-icon {
+            color: #e74c3c;
+            font-size: 20px;
+            transition: transform 0.3s;
+        }
+        
+        .faq-question.active .faq-icon {
+            transform: rotate(45deg);
+        }
+        
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            color: #666;
+            line-height: 1.7;
+        }
+        
+        .faq-answer.show {
+            padding: 0 30px 30px;
+            max-height: 500px;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background-color: #2c3e50;
+            color: white;
+            padding: 100px 0;
+            text-align: center;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-content h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        
+        .cta-content p {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            background-color: #e74c3c;
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 18px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .cta-btn:hover {
+            background-color: #c0392b;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+        
+        .cta-btn-secondary {
+            background-color: transparent;
+            border: 2px solid white;
+        }
+        
+        .cta-btn-secondary:hover {
+            background-color: white;
+            color: #2c3e50;
+        }
+        
+        /* Footer */
+        footer {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 60px 0 30px;
+        }
+        
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        
+        .footer-logo {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-logo h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        
+        .footer-logo span {
+            color: #e74c3c;
+        }
+        
+        .footer-contact {
+            flex: 1;
+            min-width: 250px;
+        }
+        
+        .footer-contact h4 {
+            font-size: 1.3rem;
+            margin-bottom: 20px;
+            color: #ecf0f1;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .contact-icon {
+            background-color: #e74c3c;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .social-link {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: #34495e;
+            border-radius: 50%;
+            color: white;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+        
+        .social-link:hover {
+            background-color: #e74c3c;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid #34495e;
+            color: #bdc3c7;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .services-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .services-grid {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            nav ul {
+                position: fixed;
+                top: 80px;
+                left: -100%;
+                width: 100%;
+                background-color: white;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+                transition: left 0.3s ease;
+            }
+            
+            nav ul.show {
+                left: 0;
+            }
+            
+            nav ul li {
+                margin: 15px 0;
+            }
+            
+            .services-hero h1 {
+                font-size: 2.2rem;
+            }
+            
+            .services-hero {
+                height: 40vh;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .cta-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .services-hero {
+                height: 35vh;
+            }
+            
+            .services-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            
+            section {
+                padding: 80px 0;
+            }
+            
+            .services-section, .process-section, .faq-section, .cta-section {
+                padding: 70px 0;
+            }
+            
+            .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+
+    <!-- Hero Section -->
+    <section class="services-hero">
+        <div class="services-hero-content">
+            <h1>Our Photography Services</h1>
+            <p>Professional photography services tailored to capture your most precious moments with artistic excellence</p>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Services We Offer</h2>
+                <p>Each photography service is carefully crafted to tell your unique story through stunning visuals and professional expertise.</p>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Service 1: Wedding Photography -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1519741497674-611481863552?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Wedding Photography">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Wedding Photography</h3>
+                        <p>Capture the magic of your special day with our professional wedding photography services. We blend candid moments with traditional portraits to create timeless memories.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Full Day Coverage (8-12 hours)</li>
+                            <li><i class="fas fa-check"></i> Candid + Traditional Styles</li>
+                            <li><i class="fas fa-check"></i> Pre-wedding Consultation</li>
+                            <li><i class="fas fa-check"></i> High-Resolution Digital Images</li>
+                            <li><i class="fas fa-check"></i> Online Gallery & Prints</li>
+                            <li><i class="fas fa-check"></i> Engagement Session Included</li>
+                        </ul>
+                        
+                        <span class="service-price">Starting at 1,499</span>
+                        <span class="price-note">Custom packages available</span>
+                        
+                        <a href="/contact" class="btn">Book This Service</a>
+                    </div>
+                </div>
+                
+                <!-- Service 2: Pre-Wedding Shoot -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80" alt="Pre-Wedding Shoot">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Pre-Wedding Shoot</h3>
+                        <p>Beautiful pre-wedding sessions that capture the love and anticipation before the big day. We create romantic and creative concepts in stunning outdoor locations.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Outdoor Location Shoots</li>
+                            <li><i class="fas fa-check"></i> Creative Concept Development</li>
+                            <li><i class="fas fa-check"></i> 3-4 Hour Photo Session</li>
+                            <li><i class="fas fa-check"></i> Multiple Outfit Changes</li>
+                            <li><i class="fas fa-check"></i> Professional Editing</li>
+                            <li><i class="fas fa-check"></i> Digital Album Creation</li>
+                        </ul>
+                        
+                        <span class="service-price">Starting at 699</span>
+                        <span class="price-note">Includes 50+ edited photos</span>
+                        
+                        <a href="/contact" class="btn">Book This Service</a>
+                    </div>
+                </div>
+                
+                <!-- Service 3: Event Photography -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Event Photography">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-calendar-alt"></i>
+                        </div>
+                        <h3>Event Photography</h3>
+                        <p>Professional coverage for all types of events - corporate functions, parties, celebrations, and more. We capture the energy and emotion of your special occasions.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Corporate Events & Conferences</li>
+                            <li><i class="fas fa-check"></i> Birthday & Anniversary Parties</li>
+                            <li><i class="fas fa-check"></i> Candid Event Coverage</li>
+                            <li><i class="fas fa-check"></i> Group & Individual Portraits</li>
+                            <li><i class="fas fa-check"></i> Quick Turnaround Editing</li>
+                            <li><i class="fas fa-check"></i> Digital Delivery within 7 Days</li>
+                        </ul>
+                        
+                        <span class="service-price">Starting at 399</span>
+                        <span class="price-note">Hourly rates available</span>
+                        
+                        <a href="/contact" class="btn">Book This Service</a>
+                    </div>
+                </div>
+                
+                <!-- Service 4: Portrait Photography -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2068&q=80" alt="Portrait Photography">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Portrait Photography</h3>
+                        <p>Stunning individual, family, or professional portraits that capture personality and tell your unique story. Perfect for personal keepsakes or professional branding.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Individual & Family Portraits</li>
+                            <li><i class="fas fa-check"></i> Professional Headshots</li>
+                            <li><i class="fas fa-check"></i> Studio or Outdoor Sessions</li>
+                            <li><i class="fas fa-check"></i> Professional Lighting Setup</li>
+                            <li><i class="fas fa-check"></i> Guided Posing Assistance</li>
+                            <li><i class="fas fa-check"></i> Print & Digital Packages</li>
+                        </ul>
+                        
+                        <span class="service-price">Starting at 299</span>
+                        <span class="price-note">1-2 hour session included</span>
+                        
+                        <a href="/contact" class="btn">Book This Service</a>
+                    </div>
+                </div>
+                
+                <!-- Service 5: Nature Photography -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80" alt="Nature Photography">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-tree"></i>
+                        </div>
+                        <h3>Nature & Landscape Photography</h3>
+                        <p>Breathtaking landscape and nature photography that captures the beauty of the natural world. Perfect for home decor, publications, or personal collections.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Landscape & Scenic Photography</li>
+                            <li><i class="fas fa-check"></i> Wildlife Photography</li>
+                            <li><i class="fas fa-check"></i> Golden Hour Sessions</li>
+                            <li><i class="fas fa-check"></i> High-Resolution Prints Available</li>
+                            <li><i class="fas fa-check"></i> Custom Framing Options</li>
+                            <li><i class="fas fa-check"></i> Location Scouting Service</li>
+                        </ul>
+                        
+                        <span class="service-price">Starting at 199</span>
+                        <span class="price-note">Print packages available</span>
+                        
+                        <a href="/contact" class="btn">Book This Service</a>
+                    </div>
+                </div>
+                
+                <!-- Service 6: Custom Photography -->
+                <div class="service-card">
+                    <div class="service-image">
+                        <img src="https://m.media-amazon.com/images/I/71XBGP7nuiL._AC_UF894,1000_QL80_.jpg" alt="Custom Photography">
+                    </div>
+                    <div class="service-content">
+                        <div class="service-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h3>Custom Photography Projects</h3>
+                        <p>Tailored photography services for unique projects, commercial work, or special requests. We work closely with you to bring your creative vision to life.</p>
+                        
+                        <ul class="service-features">
+                            <li><i class="fas fa-check"></i> Commercial & Product Photography</li>
+                            <li><i class="fas fa-check"></i> Creative Concept Development</li>
+                            <li><i class="fas fa-check"></i> Customized Shooting Plans</li>
+                            <li><i class="fas fa-check"></i> Professional Retouching</li>
+                            <li><i class="fas fa-check"></i> Location & Studio Options</li>
+                            <li><i class="fas fa-check"></i> Flexible Scheduling</li>
+                        </ul>
+                        
+                        <span class="service-price">Custom Quote</span>
+                        <span class="price-note">Contact for project details</span>
+                        
+                        <a href="/contact" class="btn">Request Custom Quote</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Our Process</h2>
+                <p>We follow a structured approach to ensure every photography session is seamless and delivers exceptional results</p>
+            </div>
+            
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-number">1</div>
+                    <h3>Consultation</h3>
+                    <p>We begin with a detailed consultation to understand your vision, preferences, and requirements for the photography session.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">2</div>
+                    <h3>Planning</h3>
+                    <p>We create a customized plan including locations, timing, outfits, and concepts to ensure your session is perfectly tailored.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">3</div>
+                    <h3>Photoshoot</h3>
+                    <p>Our professional photoshoot captures all the special moments with attention to lighting, composition, and emotion.</p>
+                </div>
+                
+                <div class="process-step">
+                    <div class="step-number">4</div>
+                    <h3>Editing & Delivery</h3>
+                    <p>We professionally edit and retouch your images before delivering them in your preferred format with a quick turnaround.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <!-- <section class="faq-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>Frequently Asked Questions</h2>
+                <p>Find answers to common questions about our photography services and process</p>
+            </div> -->
+            
+            <!-- <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How far in advance should I book a photography session?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We recommend booking at least 4-6 weeks in advance for portrait sessions and 6-12 months in advance for weddings. This ensures availability and allows ample time for planning and preparation.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What is included in your photography packages?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>All packages include professional photography time, edited high-resolution digital images, and an online gallery for viewing and downloading. Additional services like prints, albums, and extended coverage can be added to customize your package.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>How long does it take to receive the edited photos?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>For portrait and event sessions, you'll receive your edited photos within 7-14 days. For weddings, the turnaround time is typically 4-6 weeks. We provide a few preview images within 48 hours of your session.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you offer prints and photo albums?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we offer professional printing services and custom-designed photo albums. These can be added to any package or purchased separately after your session. We work with premium labs to ensure the highest quality prints.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>What happens if the weather is bad for an outdoor shoot?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We monitor weather conditions closely and will reschedule outdoor sessions if needed due to poor weather. We have backup indoor locations available and will work with you to find the best alternative for your session.</p>
+                    </div>
+                </div> -->
+                
+                <!-- <div class="faq-item">
+                    <div class="faq-question">
+                        <span>Do you travel for photography sessions?</span>
+                        <i class="fas fa-plus faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we travel for photography sessions! Local travel is included in our packages. For destinations outside our service area, we charge a reasonable travel fee to cover transportation and accommodation if needed.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- CTA Section -->
+    <!-- <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Capture Your Special Moments?</h2>
+                <p>Contact us today to discuss your photography needs and schedule a session. Let's create beautiful memories together.</p>
+                
+                <div class="cta-buttons">
+                    <a href="/contact.ejs" class="cta-btn">Book a Session Now</a> -->
+                    <!-- <a href="/contact.ejs" class="cta-btn cta-btn-secondary">Get a Free Quote</a> -->
+                <!-- </div>
+            </div>
+        </div>
+    </section> -->
+
+    <!-- Footer -->
+    <footer id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <h3>Photo<span>Graphy</span></h3>
+                    <p>Capturing life's precious moments with creativity and passion. Let's create beautiful memories together.</p>
+                    
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-pinterest-p"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-contact">
+                    <h4>Contact Information</h4>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone-alt"></i>
+                            </div>
+                            <div>
+                                <p>+1 (555) 123-4567</p>
+                                <small>Phone / WhatsApp</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>
+                                <p>hello@photography.com</p>
+                                <small>Email</small>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div>
+                                <p>123 Studio Street</p>
+                                <small>New York, NY 10001</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Photography Portfolio. All rights reserved. | Designed with passion for visual storytelling</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            mobileMenuBtn.innerHTML = navMenu.classList.contains('show') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav ul li a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('show');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+        
+        // FAQ Accordion
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const icon = question.querySelector('.faq-icon');
+                
+                // Toggle active class on question
+                question.classList.toggle('active');
+                
+                // Toggle answer visibility
+                if (answer.classList.contains('show')) {
+                    answer.classList.remove('show');
+                    icon.classList.remove('fa-minus');
+                    icon.classList.add('fa-plus');
+                } else {
+                    // Close other open answers
+                    document.querySelectorAll('.faq-answer').forEach(otherAnswer => {
+                        otherAnswer.classList.remove('show');
+                    });
+                    document.querySelectorAll('.faq-question').forEach(otherQuestion => {
+                        otherQuestion.classList.remove('active');
+                        const otherIcon = otherQuestion.querySelector('.faq-icon');
+                        otherIcon.classList.remove('fa-minus');
+                        otherIcon.classList.add('fa-plus');
+                    });
+                    
+                    // Open this answer
+                    answer.classList.add('show');
+                    icon.classList.remove('fa-plus');
+                    icon.classList.add('fa-minus');
+                }
+            });
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+        
+        // Add scroll effect to header
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 5px 20px rgba(0, 0, 0, 0.1)';
+            } else {
+                header.style.boxShadow = '0 2px 15px rgba(0, 0, 0, 0.08)';
+            }
+        });
+    </script>
+</body>
+</html>

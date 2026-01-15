@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Photography Portfolio Admin</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --sidebar-width: 260px;
+            --sidebar-bg: #1a1a2e;
+            --primary-color: #6a11cb;
+            --secondary-color: #2575fc;
+            --sidebar-text: #b0b7c3;
+            --sidebar-active: #ffffff;
+            --sidebar-hover: rgba(106, 17, 203, 0.15);
+            --topbar-height: 70px;
+            --gradient-bg: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+       
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f9fa;
+            overflow-x: hidden;
+            color: #495057;
+        }
+        
+        /* Top Navbar - Redesigned */
+        .navbar-top {
+            height: var(--topbar-height);
+            background: white;
+            background: linear-gradient(90deg, #ffffff 0%, #f8f9ff 100%);
+            box-shadow: 0 2px 15px rgba(106, 17, 203, 0.1);
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: var(--sidebar-width);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(106, 17, 203, 0.1);
+            transition: var(--transition);
+        }
+
+        .navbar-top.sidebar-collapsed {
+            left: 70px;
+        }
+
+        /* Sidebar - Modern Redesign */
+        .sidebar {
+            width: var(--sidebar-width);
+            height: 100vh;
+            background: var(--sidebar-bg);
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1001;
+            box-shadow: 5px 0 25px rgba(0, 0, 0, 0.1);
+            transition: var(--transition);
+            overflow-y: auto;
+            border-right: none;
+        }
+
+        .sidebar.collapsed {
+            width: 70px;
+        }
+
+        .sidebar.collapsed .sidebar-brand span,
+        .sidebar.collapsed .nav-link span,
+        .sidebar.collapsed .nav-divider {
+            display: none;
+        }
+
+        .sidebar.collapsed .sidebar-brand {
+            justify-content: center;
+            padding: 0;
+        }
+
+        .sidebar.collapsed .nav-link {
+            justify-content: center;
+            padding: 15px;
+        }
+
+        .sidebar.collapsed .nav-link i {
+            margin-right: 0;
+            font-size: 20px;
+        }
+
+        .sidebar.collapsed .nav-link.active::after {
+            display: none;
+        }
+
+        .sidebar-brand {
+            height: var(--topbar-height);
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .sidebar-brand a {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            width: 100%;
+        }
+        
+        .brand-logo {
+            width: 36px;
+            height: 36px;
+            background: var(--gradient-bg);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+        }
+        
+        .brand-logo i {
+            color: white;
+            font-size: 18px;
+        }
+        
+        .brand-text {
+            font-size: 18px;
+            font-weight: 700;
+            background: var(--gradient-bg);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: 0.5px;
+        }
+        
+        .sidebar-nav {
+            padding: 20px 0;
+        }
+        
+        .nav-item {
+            margin-bottom: 3px;
+            position: relative;
+        }
+        
+        .nav-link {
+            color: var(--sidebar-text);
+            padding: 14px 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            transition: var(--transition);
+            position: relative;
+            margin: 0 10px;
+            border: none;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: var(--sidebar-active);
+            background: var(--sidebar-hover);
+            transform: translateX(5px);
+        }
+        
+        .nav-link.active {
+            color: var(--sidebar-active);
+            background: var(--gradient-bg);
+            box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3);
+            border-left: none;
+            padding-left: 20px;
+        }
+        
+        .nav-link i {
+            width: 24px;
+            font-size: 18px;
+            margin-right: 12px;
+            transition: var(--transition);
+        }
+        
+        .nav-link.active i {
+            color: white;
+        }
+       
+        .nav-link .badge {
+            margin-left: auto;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+        }
+        
+        .nav-divider {
+            padding: 15px 20px 5px;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            font-weight: 600;
+            margin-top: 10px;
+            letter-spacing: 1px;
+            opacity: 0.7;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: var(--sidebar-width);
+            margin-top: var(--topbar-height);
+            padding: 25px;
+            min-height: calc(100vh - var(--topbar-height));
+            transition: var(--transition);
+            background: linear-gradient(135deg, #f8f9ff 0%, #f0f2ff 100%);
+        }
+
+        .main-content.sidebar-collapsed {
+            margin-left: 70px;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+                width: 280px;
+            }
+            
+            .sidebar.show {
+                transform: translateX(0);
+            }
+            
+            .navbar-top {
+                left: 0;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                padding: 20px 15px;
+            }
+            
+            .sidebar-overlay {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(5px);
+                z-index: 1000;
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            }
+            
+            .sidebar-overlay.show {
+                display: block;
+                opacity: 1;
+            }
+        }
+        
+        /* Toggle Button */
+        .sidebar-toggle {
+            border: none;
+            background: transparent;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: var(--transition);
+            padding: 8px;
+            border-radius: 8px;
+        }
+        
+        .sidebar-toggle:hover {
+            background: rgba(106, 17, 203, 0.1);
+            transform: rotate(90deg);
+        }
+        
+        /* Search Box */
+        .search-box {
+            width: 300px;
+            border-radius: 10px;
+            border: 2px solid #e9ecef;
+            padding: 0.6rem 1.2rem;
+            background: #f8f9fa;
+            transition: var(--transition);
+        }
+
+        .search-box:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(106, 17, 203, 0.1);
+            background: white;
+        }
+        
+        /* User Dropdown */
+        .user-dropdown .btn {
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 2px solid transparent;
+            transition: var(--transition);
+        }
+        
+        .user-dropdown .btn:hover {
+            border-color: rgba(106, 17, 203, 0.2);
+            background: rgba(106, 17, 203, 0.05);
+        }
+        
+        .user-dropdown img {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            object-fit: cover;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .user-dropdown .dropdown-menu {
+            border: none;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+        
+        .user-dropdown .dropdown-item {
+            padding: 10px 15px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: var(--transition);
+            color: #495057;
+        }
+        
+        .user-dropdown .dropdown-item:hover {
+            background: rgba(106, 17, 203, 0.1);
+            color: var(--primary-color);
+            transform: translateX(5px);
+        }
+        
+        .user-dropdown .dropdown-item i {
+            width: 20px;
+            margin-right: 10px;
+            color: var(--primary-color);
+        }
+        
+        /* Cards */
+        .card {
+            border: none;
+            border-radius: 15px;
+            box-shadow: var(--card-shadow);
+            margin-bottom: 25px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+        }
+        
+        .card-header {
+            background: white;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding: 20px 25px;
+            border-radius: 15px 15px 0 0 !important;
+        }
+        
+        /* Scrollbar Styling */
+        .sidebar::-webkit-scrollbar {
+            width: 5px;
+        }
+        
+        .sidebar::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.05);
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb {
+            background: rgba(106, 17, 203, 0.3);
+            border-radius: 10px;
+        }
+        
+        .sidebar::-webkit-scrollbar-thumb:hover {
+            background: rgba(106, 17, 203, 0.5);
+        }
+        
+        /* Animation for active menu item */
+        @keyframes pulse {
+            0% { box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3); }
+            50% { box-shadow: 0 4px 25px rgba(106, 17, 203, 0.5); }
+            100% { box-shadow: 0 4px 15px rgba(106, 17, 203, 0.3); }
+        }
+        
+        .nav-link.active {
+            animation: pulse 2s infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Sidebar Overlay (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <!-- Sidebar -->
+    <nav class="sidebar" id="sidebar">
+        <!-- Brand -->
+        <div class="sidebar-brand">
+            <a href="/admin" class="text-decoration-none">
+                <div class="brand-logo">
+                    <i class="fas fa-camera"></i>
+                </div>
+                <span class="brand-text">PhotoPortfolio</span>
+            </a>
+        </div>  
+        
+        <!-- Navigation -->
+        <div class="sidebar-nav">
+            <!-- Dashboard -->
+            <ul class="nav flex-column">
+                <li class="nav-divider">Main</li>
+                <li class="nav-item">
+                    <a href="/admin" class="nav-link active">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Content Management -->
+            <!-- <ul class="nav flex-column">
+                <li class="nav-divider">Content</li>
+                <li class="nav-item">
+                    <a href="/admin/users" class="nav-link">
+                        <i class="fas fa-users"></i>
+                        <span>Users</span>
+                    </a>
+                </li> -->
+               
+                <li class="nav-item">
+                    <a href="/admin/Services" class="nav-link">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Services</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/Packages" class="nav-link">
+                        <i class="fas fa-box-open"></i>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/Bookings" class="nav-link">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+
+                 <li class="nav-item">
+                    <a href="/admin/categories" class="nav-link">
+                        <i class="fas fa-images"></i>
+                        <span>Portfolio</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Feedback & Communication -->
+            <ul class="nav flex-column">
+                <li class="nav-divider">Feedback</li>
+                <li class="nav-item">
+                    <a href="/admin/Testimonials" class="nav-link">
+                        <i class="fas fa-star"></i>
+                        <span>Testimonials</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="/admin/Enquiries" class="nav-link">
+                        <i class="fas fa-envelope"></i>
+                        <span>Enquiries</span>
+                        <span class="badge bg-danger rounded-pill ms-auto">3</span>
+                    </a>
+                </li>
+            </ul>
+            
+            <!-- Settings -->
+            <ul class="nav flex-column">
+                <li class="nav-divider">Settings</li>
+                <li class="nav-item">
+                    <a href="/admin/logout" class="nav-link">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <span>Logout</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Top Navbar -->
+    <nav class="navbar-top navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <!-- Left Side: Toggle & Search -->
+            <div class="d-flex align-items-center">
+                <!-- Sidebar Toggle -->
+                <button class="sidebar-toggle me-3" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <!-- Search Box -->
+                <div class="d-none d-lg-block position-relative">
+                    <input type="text" class="search-box" placeholder="Search...">
+                    <i class="fas fa-search position-absolute" style="right: 15px; top: 50%; transform: translateY(-50%); color: #6c757d;"></i>
+                </div>
+            </div>
+            
+            <!-- Right Side: Icons & User -->
+            <div class="d-flex align-items-center">
+                <!-- Notification -->
+                <!-- <div class="dropdown me-3">
+                    <button class="btn btn-link text-dark position-relative" type="button" data-bs-toggle="dropdown">
+                        <i class="fas fa-bell fa-lg"></i>
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger" style="font-size: 0.6rem;">
+                            5
+                        </span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" style="width: 300px;">
+                        <li class="dropdown-header">Notifications</li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-bell text-warning me-2"></i> New booking received</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user text-primary me-2"></i> New user registered</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-envelope text-info me-2"></i> New enquiry</a></li>
+                    </ul>
+                </div> -->
+
+                <!-- Quick Stats -->
+                <!-- <div class="border-start ps-3 me-3 d-none d-xl-block">
+                    <div class="d-flex align-items-center">
+                        <div class="text-center me-3">
+                            <div class="fw-bold text-primary mb-1">24</div>
+                            <small class="text-muted">Bookings</small>
+                        </div>
+                        <div class="text-center">
+                            <div class="fw-bold text-success mb-1">₹85,420</div>
+                            <small class="text-muted">Revenue</small>
+                        </div>
+                    </div>
+                </div> -->
+
+                <!-- User Dropdown -->
+                <div class="dropdown user-dropdown">
+                    <button class="btn d-flex align-items-center" type="button" data-bs-toggle="dropdown">
+                        <img src="https://png.pngtree.com/png-vector/20191110/ourmid/pngtree-avatar-icon-profile-icon-member-login-vector-isolated-png-image_1978396.jpg" alt="Admin">
+                        <span class="ms-2 d-none d-md-inline fw-semibold">Admin</span>
+                        <i class="fas fa-chevron-down ms-1"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user-circle me-2"></i> Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i> Settings</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-question-circle me-2"></i> Help Center</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-sign-out-alt me-2"></i> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+   
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Sidebar Toggle Functionality
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+        const navbarTop = document.querySelector('.navbar-top');
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        
+        // Toggle sidebar (desktop collapse/expand)
+        sidebarToggle.addEventListener('click', function() {
+            if (window.innerWidth > 992) {
+                // Desktop: toggle collapsed state
+                sidebar.classList.toggle('collapsed');
+                mainContent.classList.toggle('sidebar-collapsed');
+                navbarTop.classList.toggle('sidebar-collapsed');
+            } else {
+                // Mobile: show/hide sidebar
+                sidebar.classList.toggle('show');
+                sidebarOverlay.classList.toggle('show');
+            }
+        });
+        
+        // Close sidebar when clicking overlay (mobile)
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('show');
+            this.classList.remove('show');
+        });
+        
+        // Activate nav link on click
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!this.classList.contains('active')) {
+                    document.querySelectorAll('.nav-link.active').forEach(activeLink => {
+                        activeLink.classList.remove('active');
+                    });
+                    this.classList.add('active');
+                }
+                
+                // On mobile, close sidebar after clicking a link
+                if (window.innerWidth < 992) {
+                    sidebar.classList.remove('show');
+                    sidebarOverlay.classList.remove('show');
+                }
+            });
+        });
+        
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 992) {
+                sidebar.classList.remove('show');
+                sidebarOverlay.classList.remove('show');
+            }
+        });
+        
+        // Add animation to page load
+        document.addEventListener('DOMContentLoaded', function() {
+            document.body.style.opacity = '0';
+            document.body.style.transition = 'opacity 0.3s ease-in';
+            setTimeout(() => {
+                document.body.style.opacity = '1';
+            }, 100);
+        });
+    </script>
+</body>
+</html>
