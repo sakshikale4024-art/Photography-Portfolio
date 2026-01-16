@@ -24,7 +24,6 @@ app.use(session({
 app.use("/", user_route);
 app.use("/admin", admin_route);
 
-
 app.listen(2000, function () {
   console.log("Server running on port 1000");
 });

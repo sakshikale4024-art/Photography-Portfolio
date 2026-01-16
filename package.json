@@ -4,6 +4,25 @@
     "express": "^5.2.1",
     "express-fileupload": "^1.5.2",
     "express-session": "^1.18.2",
+    "init": "^0.1.2",
     "mysql": "^2.18.1"
-  }
+  },
+  "name": "photography-portfolio",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sakshikale9484/Photography-Portfolio.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sakshikale9484/Photography-Portfolio/issues"
+  },
+  "homepage": "https://github.com/sakshikale9484/Photography-Portfolio#readme"
 }

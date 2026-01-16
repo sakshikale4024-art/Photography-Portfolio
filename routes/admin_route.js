@@ -2,9 +2,7 @@ var express = require("express");
 var exe = require("./../connection");
 var route = express.Router();
 
-/* =====================
-   DEFAULT & LOGIN
-===================== */
+
 
 route.get("/", function (req, res) {
   res.redirect("/admin/login");
@@ -24,18 +22,13 @@ route.post("/login_process", function (req, res) {
   }
 });
 
-/* =====================
-   SERVICES LIST
-===================== */
 
 route.get("/services", async function (req, res) {
   var result = await exe("SELECT * FROM services");
   res.render("admin/services.ejs", { services: result });
 });
 
-/* =====================
-   SAVE SERVICE
-===================== */
+
 
 route.post("/save_services", async function (req, res) {
 
@@ -51,9 +44,7 @@ route.post("/save_services", async function (req, res) {
   res.redirect("/admin/services");
 });
 
-/* =====================
-   EDIT SERVICE PAGE
-===================== */
+
 
 route.get("/edit_service/:id", async function (req, res) {
 
@@ -73,9 +64,6 @@ route.get("/edit_service/:id", async function (req, res) {
   });
 });
 
-/* =====================
-   UPDATE SERVICE
-===================== */
 
 route.post("/update_service/:id", async function (req, res) {
 
@@ -96,9 +84,6 @@ route.post("/update_service/:id", async function (req, res) {
   res.redirect("/admin/services");
 });
 
-/* =====================
-   DELETE SERVICE
-===================== */
 
 route.post("/delete_service/:id", async function (req, res) {
 
@@ -110,9 +95,7 @@ route.post("/delete_service/:id", async function (req, res) {
   res.redirect("/admin/services");
 });
 
-/* =====================
-   PACKAGES LIST
-===================== */
+
 
 route.get("/packages", async function (req, res) {
 
@@ -120,9 +103,7 @@ route.get("/packages", async function (req, res) {
   res.render("admin/Packages.ejs", { Packages: result });
 });
 
-/* =====================
-   SAVE PACKAGE
-===================== */
+
 
 route.post("/save_package", async function (req, res) {
 
@@ -138,9 +119,6 @@ route.post("/save_package", async function (req, res) {
   res.redirect("/admin/packages");
 });
 
-/* =====================
-   DELETE PACKAGE
-===================== */
 
 route.get("/delete_package/:id", async function (req, res) {
 
@@ -152,9 +130,6 @@ route.get("/delete_package/:id", async function (req, res) {
   res.redirect("/admin/packages");
 });
 
-/* =====================
-   EDIT PACKAGE PAGE
-===================== */
 
 route.get("/edit_package/:id", async function (req, res) {
 
@@ -174,9 +149,7 @@ route.get("/edit_package/:id", async function (req, res) {
   });
 });
 
-/* =====================
-   UPDATE PACKAGE
-===================== */
+
 
 route.post("/update_package/:id", async function (req, res) {
 
@@ -199,10 +172,6 @@ route.post("/update_package/:id", async function (req, res) {
 
 
 
-/* =====================
-   BOOKINGS SAVE
-===================== */
-
 route.post("/save_book", async function (req, res) {
 
   var { name, email, phone, event_type, event_date, message } = req.body;
@@ -217,9 +186,6 @@ route.post("/save_book", async function (req, res) {
   res.redirect("/contact");
 });
 
-/* =====================
-   BOOKINGS LIST
-===================== */
 
 route.get("/Bookings", async function (req, res) {
 
@@ -227,9 +193,6 @@ route.get("/Bookings", async function (req, res) {
   res.render("admin/bookin.ejs", { bookings: result });
 });
 
-/* =====================
-   EDIT BOOKING
-===================== */
 
 route.get("/edit_booking/:id", async function (req, res) {
 
@@ -246,9 +209,7 @@ route.get("/edit_booking/:id", async function (req, res) {
     booking: result[0]
   });
 });
-/* =====================
-   UPDATE BOOKING
-===================== */
+
 
 route.post("/update_booking/:id", async function (req, res) {
 
@@ -268,9 +229,7 @@ route.post("/update_booking/:id", async function (req, res) {
 
   res.redirect("/admin/Bookings");
 });
-/* =====================
-   DELETE BOOKING
-===================== */
+
 
 route.get("/delete_booking/:id", async function (req, res) {
 
@@ -283,19 +242,13 @@ route.get("/delete_booking/:id", async function (req, res) {
 });
 
 
-/* =====================
-   CATEGORIES LIST
-===================== */
-
 route.get("/categories", async function (req, res) {
 
   var result = await exe("SELECT * FROM categories");
   res.render("admin/categories.ejs", { categories: result });
 });
 
-/* =====================
-   SAVE CATEGORY
-===================== */
+
 
 route.post("/save_category", async function (req, res) {
 
@@ -308,10 +261,6 @@ route.post("/save_category", async function (req, res) {
 
   res.redirect("/admin/categories");
 });
-
-/* =====================
-   EDIT CATEGORY PAGE
-===================== */
 
 route.get("/edit_category/:id", async function (req, res) {
 
@@ -330,9 +279,7 @@ route.get("/edit_category/:id", async function (req, res) {
     category: result[0]
   });
 });
-/* =====================
-   UPDATE CATEGORY
-===================== */
+
 
 route.post("/update_category/:id", async function (req, res) {
 
@@ -346,9 +293,7 @@ route.post("/update_category/:id", async function (req, res) {
 
   res.redirect("/admin/categories");
 });
-/* =====================
-   DELETE CATEGORY
-===================== */
+
 
 route.get("/delete_category/:id", async function (req, res) {
 

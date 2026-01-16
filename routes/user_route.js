@@ -18,7 +18,6 @@ route.get("/portfolio", function (req, res) {
   res.render("user/portfolio.ejs");
 });
 
-// ✅ Album page (FIXED)
 route.get("/album/rohit-pooja", function (req, res) {
   var mainImage = req.query.img;
   res.render("user/album.ejs", { mainImage: mainImage });
